@@ -1,0 +1,103 @@
+Model Card: Adaptive Bayesian Black Box Optimisation (BBO) Strategy
+
+1. Model Overview
+
+Model name
+Adaptive Bayesian Black Box Optimisation (BBO)
+Type
+Sequential Bayesian optimisation framework with adaptive strategy selection.
+Version
+Capstone implementation – Iterations 0–10
+Core components
+•	Surrogate models: Gaussian Processes (Matérn, RBF), Random Forests
+•	Acquisition functions: Expected Improvement (EI), Upper Confidence Bound (UCB), Thompson Sampling (TS), and mixtures
+•	Search regimes: Global BO, local exploitation, Trust Regions, TuRBO variants
+This is not a single fixed algorithm, but a structured optimisation approach that adapts its components in response to observed function behaviour.
+
+2. Intended Use
+Suitable use cases
+•	Optimising unknown, expensive black box functions with limited evaluation budgets.
+•	Problems where function structure is unknown a priori and must be inferred from data.
+•	Educational or research settings focusing on decision making in Bayesian optimisation, not just final performance.
+•	Scenarios requiring transparency and traceability of optimisation decisions.
+Uses to avoid
+•	Fully automated settings requiring no human interpretation or intervention.
+•	Problems with strict real time constraints (high latency per iteration).
+•	Situations where strong guarantees of global optimality are required.
+•	Benchmarking scenarios that assume a single, static optimisation algorithm.
+
+3. Strategy and Technical Details (Across Ten Rounds)
+
+•	Overall philosophy
+The approach follows a three phase logic that emerged empirically rather than being imposed upfront:
+1.	Exploration – identify promising regions.
+2.	Diagnosis – infer function geometry and failure modes.
+3.	Exploitation / validation – refine and confirm the optimal solution.
+•	Evolution across rounds
+•	Early rounds (Weeks 0–2)
+Emphasis on global exploration using GP based BO with EI or UCB.
+Goal: detect gradients, multimodality, or potential optima.
+•	Middle rounds (Weeks 3–6)
+Strategic experimentation with:
+o	Alternative surrogates (e.g. Random Forests),
+o	Mixed acquisition functions,
+o	Trust region constraints.
+These rounds revealed model–function mismatches (e.g. GP smoothness vs. irregular functions).
+•	Late rounds (Weeks 7–10)
+Transition to locally adaptive methods (TuRBO, forced local EI, anisotropic refinement).
+At this stage, the objective shifted from “finding something better” to confirming whether improvement was theoretically plausible.
+Across functions, stagnation was interpreted as evidence, not failure, when supported by repeated local confirmation.
+
+
+4. Performance Summary
+
+Evaluation scope
+The approach was applied across eight distinct black box functions with varying dimensionality and landscape structure.
+
+Metrics used
+•	Best observed objective value (best y).
+•	Improvement over time (convergence curves).
+•	Stability of the optimum across iterations.
+•	Qualitative diagnostics (e.g. input–output scatter plots, trust region behaviour).
+
+Summary of results
+•	Early convergence on unimodal or boundary optimum functions.
+•	Late improvements only when changing the search regime, not just parameters.
+•	Clear empirical evidence that one optimisation strategy does not fit all functions.
+•	In several cases, the best result was achieved early and subsequently validated rather than surpassed, consistent with the true function geometry.
+Performance was therefore evaluated not only on absolute optima, but on appropriateness of decisions relative to the function behaviour.
+
+5. Assumptions and Limitations
+
+Key assumptions
+•	Observed samples are representative enough to infer global function structure.
+•	Repeated local confirmation implies absence of superior distant optima.
+•	Bayesian surrogates provide meaningful uncertainty estimates under limited data.
+
+Limitations and failure modes
+•	Strong dependence on early signals: misleading early observations can bias later focus.
+•	Reduced global coverage once local exploitation is prioritised.
+•	Not robust to highly deceptive functions with multiple rare, isolated optima.
+•	Requires human judgement to interpret diagnostics and adjust strategy.
+The approach trades theoretical completeness for empirical efficiency and interpretability.
+
+6. Ethical Considerations and Transparency
+Transparency and reproducibility
+•	All optimisation decisions are explicitly documented (model choice, AF, radius changes).
+•	The reasoning behind strategy changes is traceable to observed data patterns.
+•	This transparency enables: 
+o	Reproducibility by other researchers,
+o	Post hoc auditing of optimisation decisions,
+o	Responsible adaptation to real world problems.
+Real world adaptation In applied settings, such transparency reduces the risk of:
+•	Over trusting automated optimisation outputs,
+•	Misinterpreting stagnation as failure,
+•	Deploying optimisation strategies beyond their valid regime.
+
+Reflection on Model Card Adequacy
+This model card deliberately balances detail and abstraction:
+•	It avoids listing every parameter value (which is documented elsewhere),
+•	It focuses on decision logic, assumptions, and empirical behaviour.
+Adding substantially more detail (e.g. week by week hyperparameters) would reduce clarity rather than increase usefulness, obscuring the core contribution:
+a defensible, evidence driven optimisation process rather than a single algorithmic recipe.
+
