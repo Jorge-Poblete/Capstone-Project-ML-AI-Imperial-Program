@@ -1,0 +1,96 @@
+Datasheet for the BBO Capstone Project Dataset
+
+1.	Motivation
+
+Why was this dataset created?
+This dataset was created to support a Bayesian Black Box Optimisation (BBO) capstone project. The primary goal was to empirically study how different optimisation strategies (surrogates, acquisition functions, trust-region methods, and exploration–exploitation regimes) perform across a diverse set of unknown objective functions.
+
+What task does it support?
+The dataset supports:
+•	Evaluating optimisation performance over time (convergence, stagnation, jumps).
+•	Diagnosing mismatches between modelling assumptions and true function behaviour.
+•	Comparing optimisation paradigms (global BO vs. local methods such as TuRBO).
+•	Reflecting on methodological decisions and their empirical consequences.
+
+The dataset was not created to model a real-world physical process, but rather to analyse and document optimisation dynamics under controlled yet unknown function landscapes.
+
+2. Composition
+
+What does the dataset contain?
+The dataset consists of:
+•	Input vectors (x) evaluated by the black box simulator.
+•	Corresponding scalar outputs (y).
+•	Metadata per iteration/week, including: 
+o	Surrogate model used (e.g. GP, Random Forest),
+o	Acquisition function (EI, UCB, TS, mixtures),
+o	Trust region parameters (when applicable),
+o	Batch size and candidate-generation strategy.
+Each function in the capstone project has its own subset of data, generated sequentially over multiple weeks.
+
+Size and format
+•	Size: relatively small to moderate (on the order of hundreds to low thousands of evaluations per function).
+•	Format: tabular (CSV / Excel), complemented by text reports and plots documenting weekly decisions.
+•	Dimensionality: varies by function (from 2D up to 6D).
+
+Gaps or missing data
+•	There are intentional gaps in coverage of the search space, especially in later stages, due to focused local exploitation.
+•	Some regions were never sampled after early rounds because empirical evidence suggested low value. These gaps are an explicit consequence of optimisation choices, not data collection errors.
+
+3. Collection Process
+
+How were the queries generated?
+Queries (input points) were generated sequentially using Bayesian optimisation and related heuristics. At each iteration:
+1.	A surrogate model was fitted to all observed data.
+2.	An acquisition function proposed candidate points.
+3.	One or more points were selected and evaluated by the simulator.
+4.	Observed outputs were added to the dataset.
+What strategy was used?
+
+The strategy evolved across time and functions:
+•	Early rounds generally favoured global exploration.
+•	Mid rounds experimented with model and acquisition changes.
+•	Later rounds increasingly relied on local exploitation, trust regions, or TuRBO, once function structure became clear.
+
+Importantly, several strategies were retained or abandoned based on observed empirical behaviour, not theoretical preference.
+
+Time frame
+The data were collected over ten weekly iterations (Weeks 0–10), representing a staged and reflective optimisation process rather than a single automated run.
+
+4. Preprocessing and Uses
+
+Preprocessing and transformations
+•	No synthetic augmentation was applied.
+•	Some normalisation or scaling was performed internally for modelling purposes, but the raw evaluated points were preserved.
+•	Best so far metrics and convergence curves were derived from the raw data.
+
+Intended uses
+•	Analysis of optimisation dynamics and decision-making.
+•	Pedagogical illustration of Bayesian optimisation strengths and failures.
+•	Reflection on modelling assumptions (smoothness, locality, multimodality).
+
+Inappropriate uses
+•	Training general-purpose predictive models outside the optimisation context.
+•	Interpreting the dataset as representative of real-world experimental data.
+•	Using it to benchmark algorithms without accounting for the sequential, adaptive nature of data collection.
+
+5. Distribution and Maintenance
+
+Availability
+The dataset is stored locally and within the capstone project submission materials. It is not publicly distributed.
+
+Terms of use
+•	Intended for academic evaluation of the capstone project.
+•	Reuse is acceptable for educational purposes with proper context.
+•	Not licensed for commercial or benchmarking claims.
+
+Maintenance
+The dataset is maintained by the project author (the student). No further data collection is planned after the final iteration, aside from archival or documentation updates.
+
+6. Assumptions and Reflections
+
+Several assumptions are embedded in the dataset:
+•	That observed optimisation behaviour reflects true function structure.
+•	That stagnation often indicates convergence rather than failure.
+•	That later data are more informative locally but less representative globally.
+These assumptions shape how the dataset should be interpreted. The dataset documents not only what was sampled, but also what was deliberately not sampled, making the optimisation decisions themselves part of the data-generating process.
+
