@@ -1,0 +1,25 @@
+=====================================
+WEEKLY OPTIMIZATION REPORT
+=====================================
+
+EXPERIMENT
+-------------------------------------
+Function: function_4
+Week: 1
+Strategy: INITIAL
+Samples: 31
+
+MODEL
+-------------------------------------
+Type: GaussianProcessRegressor
+Kernel: Matern(length_scale=0.7, nu=1.5)
+
+METRICS
+-------------------------------------
+Best Value: -4.025542
+Mean: -16.964958
+Std: 7.064668
+
+NEXT POINT (FOR SIMULATOR)
+-------------------------------------
+[0.67630597 0.21332411 0.35213688 0.1894667 ]
