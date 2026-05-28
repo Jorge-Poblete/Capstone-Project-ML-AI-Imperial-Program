@@ -2,24 +2,24 @@
 WEEKLY OPTIMIZATION REPORT
 =====================================
 
-EXPERIMENT
+[EXPERIMENT]
 -------------------------------------
-Function: function_6
-Week: 1
-Strategy: INITIAL
-Samples: 21
+Function     : function_6
+Week         : 1
+Strategy     : INITIAL
+Samples      : 21
 
-MODEL
+[MODEL]
 -------------------------------------
-Type: GaussianProcessRegressor
-Kernel: Matern(length_scale=0.687, nu=1.5)
+Type         : GaussianProcessRegressor
+Kernel       : Matern(length_scale=0.687, nu=1.5)
 
-METRICS
+[METRICS]
 -------------------------------------
-Best Value: -0.374017
-Mean: -1.441991
-Std: 0.499028
+Best Value   : -0.374017
+Mean         : -1.441991
+Std          : 0.499028
 
-NEXT POINT (FOR SIMULATOR)
+[NEXT POINT - SIMULATOR]
 -------------------------------------
-[0.67630597 0.21332411 0.35213688 0.1894667  0.56171282]
+0.474070-0.455330-0.380740-0.742860-0.103500
