@@ -1,0 +1,25 @@
+=====================================
+WEEKLY OPTIMIZATION REPORT
+=====================================
+
+[EXPERIMENT]
+-------------------------------------
+Function     : function_4
+Week         : 12
+Strategy     : TURBO
+Samples      : 42
+
+[MODEL]
+-------------------------------------
+Type         : GaussianProcessRegressor
+Kernel       : Matern(length_scale=0.907, nu=1.5)
+
+[METRICS]
+-------------------------------------
+Best Value   : 0.589370
+Mean         : -13.317263
+Std          : 8.975108
+
+[NEXT POINT - SIMULATOR]
+-------------------------------------
+0.354525-0.383886-0.390647-0.391188

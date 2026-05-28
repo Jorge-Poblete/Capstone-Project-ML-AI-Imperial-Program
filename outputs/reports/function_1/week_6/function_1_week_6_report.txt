@@ -1,0 +1,25 @@
+=====================================
+WEEKLY OPTIMIZATION REPORT
+=====================================
+
+[EXPERIMENT]
+-------------------------------------
+Function     : function_1
+Week         : 6
+Strategy     : DOUBLE_RADIUS
+Samples      : 16
+
+[MODEL]
+-------------------------------------
+Type         : GaussianProcessRegressor
+Kernel       : Matern(length_scale=1e-05, nu=1.5)
+
+[METRICS]
+-------------------------------------
+Best Value   : 0.000002
+Mean         : -0.000225
+Std          : 0.000873
+
+[NEXT POINT - SIMULATOR]
+-------------------------------------
+0.482709-0.685537

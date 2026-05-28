@@ -1,0 +1,25 @@
+=====================================
+WEEKLY OPTIMIZATION REPORT
+=====================================
+
+[EXPERIMENT]
+-------------------------------------
+Function     : function_6
+Week         : 3
+Strategy     : Dirichlet
+Samples      : 23
+
+[MODEL]
+-------------------------------------
+Type         : GaussianProcessRegressor
+Kernel       : Matern(length_scale=0.7, nu=1.5)
+
+[METRICS]
+-------------------------------------
+Best Value   : -0.374017
+Mean         : -1.402376
+Std          : 0.500184
+
+[NEXT POINT - SIMULATOR]
+-------------------------------------
+0.006886-0.066610-0.158019-0.768248-0.000237

@@ -1,0 +1,25 @@
+=====================================
+WEEKLY OPTIMIZATION REPORT
+=====================================
+
+[EXPERIMENT]
+-------------------------------------
+Function     : function_6
+Week         : 8
+Strategy     : Anisotropic
+Samples      : 28
+
+[MODEL]
+-------------------------------------
+Type         : GaussianProcessRegressor
+Kernel       : Matern(length_scale=0.737, nu=1.5)
+
+[METRICS]
+-------------------------------------
+Best Value   : -0.374017
+Mean         : -1.378616
+Std          : 0.456294
+
+[NEXT POINT - SIMULATOR]
+-------------------------------------
+0.237139-0.213818-0.178342-0.330874-0.039828

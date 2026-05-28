@@ -1,0 +1,26 @@
+=====================================
+WEEKLY OPTIMIZATION REPORT
+=====================================
+
+[EXPERIMENT]
+-------------------------------------
+Function     : function_7
+Week         : 3
+Strategy     : EI_LOCAL
+Samples      : 33
+
+[MODEL]
+-------------------------------------
+Type         : GaussianProcessRegressor
+Kernel       : Matern(length_scale=1e-05, nu=1.5)
+
+[METRICS]
+-------------------------------------
+Best Value   : 1.879384
+Mean         : 0.296483
+Std          : 0.422334
+
+[NEXT POINT - SIMULATOR]
+-------------------------------------
+
+0.048948-0.075148-0.563071-0.196960-0.888361-0.919170

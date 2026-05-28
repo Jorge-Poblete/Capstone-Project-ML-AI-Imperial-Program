@@ -1,0 +1,26 @@
+=====================================
+WEEKLY OPTIMIZATION REPORT
+=====================================
+
+[EXPERIMENT]
+-------------------------------------
+Function     : function_8
+Week         : 9
+Strategy     : LOCAL_GLOBAL_GP
+Samples      : 49
+
+[MODEL]
+-------------------------------------
+Type         : GaussianProcessRegressor
+Kernel       : Matern(length_scale=1.85, nu=1.5)
+
+[METRICS]
+-------------------------------------
+Best Value   : 9.917797
+Mean         : 8.126702
+Std          : 1.098678
+
+[NEXT POINT - SIMULATOR]
+-------------------------------------
+
+0.196673-0.131953-0.224936-0.248429-1.000000-0.370760-0.126177-0.838289

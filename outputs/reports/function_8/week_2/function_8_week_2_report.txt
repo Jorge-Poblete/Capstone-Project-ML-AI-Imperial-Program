@@ -1,0 +1,25 @@
+=====================================
+WEEKLY OPTIMIZATION REPORT
+=====================================
+
+[EXPERIMENT]
+-------------------------------------
+Function     : function_8
+Week         : 2
+Strategy     : TPE
+Samples      : 42
+
+[MODEL]
+-------------------------------------
+Type         : GaussianProcessRegressor
+Kernel       : Matern(length_scale=1.58, nu=1.5)
+
+[METRICS]
+-------------------------------------
+Best Value   : 9.735123
+Mean         : 7.906542
+Std          : 1.010211
+
+[NEXT POINT - SIMULATOR]
+-------------------------------------
+0.040364-0.068763-0.039093-0.039611-0.864241-0.891103-0.060854-0.147911
