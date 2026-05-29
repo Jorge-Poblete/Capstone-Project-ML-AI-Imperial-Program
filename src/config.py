@@ -166,7 +166,7 @@ class Config:
             9: {"strategy": "LOCAL_GLOBAL_GP","params": {"prop_local": 0.9, "radius": 0.03, "xi": 0.005}}, # Week 9: Strong local improvement
             10: {"strategy": "LOCAL_GLOBAL_GP","params": {"prop_local": 0.9, "radius": 0.03, "xi": 0.002}},  # Week 10: Near optimum
             11: {"strategy": "ULTRA_LOCAL_GP","params": {"prop_local": 0.95, "radius": 0.015, "xi": 0.001, "elite": 0.003}}, # Week 11: Ultra-local → overshoot
-            12: {"strategy": "ULTRA_LOCAL_GP","params": {"prop_local": 0.97, "radius": 0.008, "xi": 0.0005, "elite": 0.0015}}, # Week 12: New optimum ✅
+            12: {"strategy": "ULTRA_LOCAL_GP","params": {"prop_local": 0.97, "radius": 0.008, "xi": 0.0005, "elite": 0.0015}}, # Week 12: New optimum
             13: {"strategy": "FINAL_EXPLOIT","params": {"prop_local": 0.98, "radius": 0.005, "xi": 0.0002, "elite": 0.0008}},# Week 13: Final convergence
         }
     }
