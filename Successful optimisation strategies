@@ -1,0 +1,39 @@
+Successful optimisation strategies
+
+1.	Which optimisation strategies led to your strongest results, and why were they effective? How did these strategies influence your decisions as the challenge progressed?
+
+The strategies that led to my strongest results were primarily local optimisation techniques, especially trust-region methods (TuRBO), forced local Expected Improvement (EI), and adaptive model selection (switching from GP to Random Forest when needed). These strategies were effective because they aligned the search process with the underlying structure of the functions. For example, in Function 4 and Function 7, long periods of stagnation under global exploration were only resolved after introducing TuRBO, which concentrated the search in promising local regions and produced breakthroughs (Weeks 9 and 8). Similarly, in Function 1, global exploration failed entirely, but switching to local EI with a small radius immediately revealed the narrow optimal region.
+As the challenge progressed, these results fundamentally changed my decision-making. Instead of continuing with global exploration, I began to transition earlier to local optimisation once performance clusters appeared, and I prioritised strategies that maximised learning efficiency within known high-value regions. This shift made my approach more targeted and data-driven.
+
+2.	In your view, what qualities define a ‘successful’ strategy – is it outcomes alone or also adaptability, reasoning or efficiency?
+
+A successful strategy is not defined by outcomes alone, but by a combination of adaptability, reasoning, and efficiency. While achieving strong results is important, what truly distinguishes a robust optimisation approach is the ability to adapt when initial assumptions fail and to interpret data correctly.
+For example, in Function 2, the initial GP-based approach produced no improvements because the function was highly irregular. Recognising this mismatch and switching to Random Forest + EI was a reasoning-driven decision that ultimately led to the best result in Week 9. Similarly, in Function 5, the most effective strategy was not continued optimisation, but recognising early convergence and avoiding unnecessary exploration. These cases show that efficiency (using fewer iterations effectively) and adaptability (changing strategy when needed) are just as important as final performance.
+
+3.	How could the strategies you identified be applied or adapted to professional ML/AI projects beyond the BBO capstone project?
+
+The strategies identified in this project are highly relevant for real-world ML and AI applications, particularly in domains where objective functions are complex, expensive, or poorly understood (e.g. pricing, industrial optimisation, hyperparameter tuning).
+The key idea is to adopt an adaptive optimisation framework:
+•	Start with exploration to understand the system
+•	Detect structure (e.g. local regions, irregular behaviour)
+•	Transition to focused optimisation in promising areas
+For instance, in industrial process optimisation, systems often behave similarly to Function 1 or Function 2, where optimal performance exists in narrow regions and small deviations significantly affect results. Applying local search strategies and model adaptation (e.g. switching models when assumptions fail) would improve efficiency and robustness. Additionally, these strategies align with broader ML principles such as model selection, active learning, and reinforcement learning, where decision-making evolves based on observed outcomes.
+
+4.	What successful strategies did you notice in your peers’ approaches, and what made them effective? Do you see overlap with your own strategy? Explain your reasoning.
+
+Although I do not reference specific individuals, a clear pattern among strong-performing peers is the early shift from exploration to exploitation and the use of simple, robust strategies rather than overly complex ones. Many effective approaches seemed to converge quickly because they avoided prolonged global exploration and instead focused on refining promising regions.
+This strongly overlaps with my own strategy, especially in later stages. For example, similar to successful peer approaches, I found that switching to local methods like TuRBO (Functions 4 and 7) and avoiding unnecessary complexity produced the best results. Additionally, the idea of reducing exploration once convergence signals appear is a shared principle. This suggests that high-performing strategies tend to converge toward similar behaviours: adaptive, simple, and data-driven decision-making.
+
+5.	What suggestions or perspectives could strengthen your peers’ strategies, and how do their reflections broaden your view of what success means in optimisation?
+
+One way to strengthen peer strategies would be to make the decision process more explicitly systematic and rule-based. For example, defining clear criteria for:
+•	Switching between models (GP → RF)
+•	Transitioning from global to local search
+•	Reducing exploration when improvement plateaus
+This would improve consistency and reduce the reliance on intuition.
+At the same time, reading and reflecting on peer strategies broadened my view of success in optimisation. Initially, I focused mainly on achieving the best numerical results, but it became clear that success also includes:
+•	Understanding why a strategy works or fails
+•	Demonstrating control over the optimisation process
+•	Adapting efficiently to different problem types
+Peers’ reflections highlighted that optimisation is not just about reaching the best value, but about learning how to make better decisions under uncertainty, which is ultimately the most transferable skill to real-world applications.
+
