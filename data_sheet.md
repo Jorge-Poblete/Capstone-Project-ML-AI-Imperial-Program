@@ -1,111 +1,214 @@
-# Datasheet template
-
-This datasheet helps you document your optimisation decisions, learning and reasoning for every function in the black-box optimisation project. 
-
-Provide concise, reflective answers. Bullet points are acceptable unless otherwise specified.
+# Datasheet Capstone Project
 
 ## Function overview
 
-Describe the specific black-box function you are optimising.
+1. Which function does this datasheet describe?
 
-1. Which function does this datasheet describe? (Function 1�8)
-State the function number and name.
+Function X – Black-box optimisation task (dimensionality varies per case).
 
-2. What real-world scenario does this function simulate? 
-Summarise the domain (e.g., contamination detection, chemical yield).
+2. What real-world scenario does this function simulate?
 
-3. What is the dimensionality of the input? 
-E.g., 2D, 3D, 5D, etc.
+This function simulates a real-world optimisation problem where the objective function is unknown, expensive to evaluate, and must be explored through sequential experimentation. Depending on the function, this can represent scenarios such as:
+Chemical process optimisation (yield maximisation)
+Industrial parameter tuning
+Hyperparameter optimisation in machine learning
 
-4. How many initial data points were provided? 
-Refer to the dataset shape.
+The goal is to efficiently discover the best-performing input configuration under uncertainty.
 
-5. What does the output represent? 
-E.g., yield, adverse reaction severity, performance score, etc.
+3. What is the dimensionality of the input?
+Varies by function:
+
+Function 1–2: 2D
+Function 3: 3D
+Function 4–5: 4D
+Function 6: 5D (simplex constraint)
+Function 7: 6D
+Function 8: 8D
+
+4. How many initial data points were provided?
+
+A small set of initial points (Design of Experiments), typically limited and insufficient to fully describe the function.
+Dataset size grows sequentially as one point is added per iteration.
+
+5. What does the output represent?
+
+A scalar performance metric, such as:
+
+Yield
+Quality score
+Reward / objective value
+
+The optimisation objective is to maximise this value.
  
 ## Nature of the data
 
-Describe how the dataset is structured and evolves across iterations.
+1. Structure of the initial dataset
+   
+•	Input: matrix of shape(N, d)
+•	Output: vector of shape(N, 1)
+•	Typically small (few initial observations)
+•	Stored in structured arrays (.npy, CSV)
 
-1. Describe the structure of the initial dataset. 
-State the shapes of input and output arrays.
+2. Dataset evolution
+   
+•	One new data point added per week
+•	Dataset grows sequentially (small → moderate size)
+•	Early iterations: global coverage
+•	Later iterations: highly concentrated local sampling
 
-2. How does the dataset evolve as you add new queries weekly?
-Mention the number of new points, the exploration pattern, and shifts in sampling.
+This leads to non-uniform coverage of the search space, intentionally focused on high-performing regions. 
 
-3. Does the function include noise or randomness? 
-Explain if repeated evaluations give different results and how this affected your strategy.
+3. Noise or randomness
 
-4. Based on observations, does the function appear unimodal, multimodal, noisy, or smooth? 
-State your reasoning (plots, surrogate behaviour, GP variance, etc.).
+Some functions exhibit noise or irregular behaviour, where similar inputs produce different outputs (e.g., Function 2, Function 4).
+This affected the strategy by:
+•	Requiring more robust models (e.g. Random Forest)
+•	Increasing the need for controlled exploration
+
+4. Function behaviour (observed)
+
+Depending on the function, behaviour includes:
+
+•	Unimodal, smooth (Function 5)
+•	Highly localised peaks (Function 1, Function 6)
+•	Multimodal with sparse islands (Function 4, Function 7, Function 8)
+•	Irregular / non-smooth (Function 2)
+These observations were based on:
+•	Surrogate model behaviour
+•	Lack or presence of improvement
+•	Sensitivity to small input changes
 
 ## Your optimisation strategy
 
-Explain the method you designed.
+1. Optimisation methods used
+   
+•	Bayesian Optimisation 
+  o	Gaussian Process + EI/UCB
+  o	Random Forest + EI
+  o	TPE (Tree Parzen Estimator)
 
-1. Which optimisation method(s) did you use? 
-Random search, grid search, Bayesian optimisation (GP/EI/UCB), manual reasoning, etc.
+•	Trust-region methods (TuRBO)
+•	Local search (forced EI)
 
-2. Why did you choose this method for this particular function? 
-Tie your reasoning to noise level, dimensionality, local optima, etc.
+2. Why this method?
 
-3. How did you balance exploration and exploitation? 
-Mention acquisition functions, search heuristics or heuristics.
+Different methods were chosen depending on function characteristics:
 
-4. Did your strategy change over the weeks? Why? 
-Describe adaptations due to insights or failures.
+•	GP → smooth functions
+•	RF → irregular/noisy functions
+•	TuRBO → multimodal/high-dimensional problems
+
+The strategy was adaptive based on empirical performance, not fixed assumptions.
+
+3. Exploration vs exploitation balance
+
+•	Early phase → exploration (UCB, global sampling)
+•	Middle phase → mixed (EI + UCB / TS)
+•	Late phase → exploitation (local EI, small radius)
+
+4. Strategy evolution
+
+•	From global BO → local optimisation
+•	From GP-only → model switching (RF)
+•	From exploration → validation
+
+Changes were driven by:
+•	Stagnation
+•	Model mismatch
+•	Discovery of high-performing regions
 
 ## Data handling and preprocessing
 
-Explain how you prepared data for modelling or decision-making.
+1. Input scaling
+Inputs were normalised to ensure:
+•	Stable surrogate training
+•	Better numerical performance
 
-1. Did you rescale or normalise inputs? Why or why not?
+2. Surrogate models
+•	Gaussian Processes (Matérn kernel, ARD)
+•	Random Forest (for irregular landscapes)
 
-2. Did you train any surrogate models? 
-GP, regression, tree-based model, neural model, etc.
+3. Preprocessing for surrogates 
+•	Output normalisation
+•	Kernel parameter tuning (lengthscale, noise)
+•	Feature scaling
 
-3. If yes, what preprocessing did the surrogate require? 
-Kernel choice, encoding choices, noise modelling and hyperparameter tuning.
-
-4. Did you handle outliers or unusual data points? 
-Explain your criteria and actions taken. 
+4. Outliers handling
+•	No explicit removal
+•	Instead: 
+  o	Interpreted as signal (e.g. poor regions)
+  o	Used to guide exploration/exploitation decisions
 
 ## Weekly iteration and learning
 
-Reflect on learning over time.
+1. Learning over time
+•	Early iterations → understanding global structure
+•	Later iterations → refining local regions
 
-1. How did new data points change your understanding of the function landscape?
+2. Local optima detection
+Detected through:
+•	Repeated high values in same region
+•	Lack of improvement despite exploration
 
-2. Did you encounter local optima? How did you detect them?
+3. Most informative inputs
+•	Points near high-performing regions
+•	Boundary points (Function 5)
+•	High-uncertainty regions (early stages)
 
-3. Which queried inputs were most informative and why? 
-E.g., boundary points, uncertain regions, high-gradient regions.
+4. What I would do differently
+•	Detect function type earlier (local vs global)
+•	Switch strategies sooner
+•	Automate model selection
 
-4. If you restarted, what would you do differently? 
-Strategy, heuristics, exploration schedule, model choice.
 
 ## Performance and results
 
-Summarise your optimisation outcomes.
+1. Best output achieved
+Varies by function (examples):
 
-1. What is the best output value you achieved?
+•	Function 1 → Week 3
+•	Function 2 → Week 9
+•	Function 4 → Week 9
+•	Function 5 → Week 4
+•	Function 6 → Week 1
+•	Function 7 → Week 8
+•	Function 8 → Week 13
 
-2. Which input vector produced this value?
+2. Best input vector
+The specific input corresponding to best performance (stored in dataset).
 
-3. How confident are you that this is near the global maximum? Why?
-Refer to variance, stability, surrogate predictions, and exploration coverage.
+3. Confidence in optimality
+High confidence due to:
+•	Stability across iterations
+•	Lack of improvement after refinement
+•	Low uncertainty in local regions
 
-4. Did your results align with expectations for this function? Based on the problem description.
+4. Alignment with expectations
+Yes:
+•	Smooth functions → early convergence
+•	Complex functions → require exploration + local search
+
 
 ## Ethical, practical and general considerations
 
-Reflect on the broader implications of the optimisation task.
+1. Real-world relevance
 
-1. How does this black-box optimisation task relate to real-world applications?
+This task reflects real applications such as:
+•	Industrial optimisation
+•	Pricing strategies
+•	Hyperparameter tuning
 
-2. What limitations arise from the synthetic nature of the function?
+2. Limitations of synthetic setup
+•	Simplified environment
+•	Lower noise compared to real systems
+•	Known evaluation budget
 
-3. Would your strategy scale to more serious or more expensive problems? Why or why not?
+3. Scalability
+Yes, but:
+•	Requires automation (e.g. RL/meta-learning)
+•	Needs parallel evaluation for real-world scale
 
-4. What risks or pitfalls should a future user be aware of when analysing this function?
-
+4. Risks and pitfalls
+•	Overfitting to local regions
+•	Ignoring unexplored space
+•	Misinterpreting stagnation
